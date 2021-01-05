@@ -75,57 +75,7 @@ class Order:
 
         # Handle and parse response
         if response is not None and response.status_code == 200:
-            parsed = json.loads(response.text)
-            logger.debug("Response Body: %s", json.dumps(parsed, indent=4, sort_keys=True))
-            data = response.json()
-            print("\nPreview Order:")
-
-            if data is not None and "PreviewOrderResponse" in data and "PreviewIds" in data["PreviewOrderResponse"]:
-                for previewids in data["PreviewOrderResponse"]["PreviewIds"]:
-                    print("Preview ID: " + str(previewids["previewId"]))
-            else:
-                # Handle errors
-                data = response.json()
-                if 'Error' in data and 'message' in data["Error"] and data["Error"]["message"] is not None:
-                    print("Error: " + data["Error"]["message"])
-                else:
-                    print("Error: Preview Order API service error")
-
-            if data is not None and "PreviewOrderResponse" in data and "Order" in data["PreviewOrderResponse"]:
-                for orders in data["PreviewOrderResponse"]["Order"]:
-                    order["limitPrice"] = orders["limitPrice"]
-
-                    if orders is not None and "Instrument" in orders:
-                        for instrument in orders["Instrument"]:
-                            if instrument is not None and "orderAction" in instrument:
-                                print("Action: " + instrument["orderAction"])
-                            if instrument is not None and "quantity" in instrument:
-                                print("Quantity: " + str(instrument["quantity"]))
-                            if instrument is not None and "Product" in instrument \
-                                    and "symbol" in instrument["Product"]:
-                                print("Symbol: " + instrument["Product"]["symbol"])
-                            if instrument is not None and "symbolDescription" in instrument:
-                                print("Description: " + str(instrument["symbolDescription"]))
-
-                if orders is not None and "priceType" in orders and "limitPrice" in orders:
-                    print("Price Type: " + orders["priceType"])
-                    if orders["priceType"] == "MARKET":
-                        print("Price: MKT")
-                    else:
-                        print("Price: " + str(orders["limitPrice"]))
-                if orders is not None and "orderTerm" in orders:
-                    print("Duration: " + orders["orderTerm"])
-                if orders is not None and "estimatedCommission" in orders:
-                    print("Estimated Commission: " + str(orders["estimatedCommission"]))
-                if orders is not None and "estimatedTotalAmount" in orders:
-                    print("Estimated Total Cost: " + str(orders["estimatedTotalAmount"]))
-            else:
-                # Handle errors
-                data = response.json()
-                if 'Error' in data and 'message' in data["Error"] and data["Error"]["message"] is not None:
-                    print("Error: " + data["Error"]["message"])
-                else:
-                    print("Error: Preview Order API service error")
+            return response.json()
         else:
             # Handle errors
             data = response.json()
@@ -210,61 +160,7 @@ class Order:
 
                     # Handle and parse response
                     if response is not None and response.status_code == 200:
-                        parsed = json.loads(response.text)
-                        logger.debug("Response Body: %s", json.dumps(parsed, indent=4, sort_keys=True))
-                        data = response.json()
-                        print("\nPreview Order: ")
-                        if data is not None and "PreviewOrderResponse" in data and "PreviewIds" in data["PreviewOrderResponse"]:
-                            for previewids in data["PreviewOrderResponse"]["PreviewIds"]:
-                                print("Preview ID: " + str(previewids["previewId"]))
-                        else:
-                            # Handle errors
-                            data = response.json()
-                            if 'Error' in data and 'message' in data["Error"] and data["Error"]["message"] is not None:
-                                print("Error: " + data["Error"]["message"])
-                                logger.debug("Response Body: %s", response)
-                            else:
-                                print("Error: Preview Order API service error")
-                                logger.debug("Response Body: %s", response)
-
-                        if data is not None and "PreviewOrderResponse" in data and "Order" in data[
-                            "PreviewOrderResponse"]:
-                            for orders in data["PreviewOrderResponse"]["Order"]:
-                                prev_orders[options_select - 1]["limitPrice"] = orders["limitPrice"]
-
-                                if orders is not None and "Instrument" in orders:
-                                    for instruments in orders["Instrument"]:
-                                        if instruments is not None and "orderAction" in instruments:
-                                            print("Action: " + instruments["orderAction"])
-                                        if instruments is not None and "quantity" in instruments:
-                                            print("Quantity: " + str(instruments["quantity"]))
-                                        if instruments is not None and "Product" in instruments \
-                                                and "symbol" in instruments["Product"]:
-                                            print("Symbol: " + instruments["Product"]["symbol"])
-                                        if instruments is not None and "symbolDescription" in instruments:
-                                            print("Description: " + str(instruments["symbolDescription"]))
-
-                            if orders is not None and "priceType" in orders and "limitPrice" in orders:
-                                print("Price Type: " + orders["priceType"])
-                                if orders["priceType"] == "MARKET":
-                                    print("Price: MKT")
-                                else:
-                                    print("Price: " + str(orders["limitPrice"]))
-                            if orders is not None and "orderTerm" in orders:
-                                print("Duration: " + orders["orderTerm"])
-                            if orders is not None and "estimatedCommission" in orders:
-                                print("Estimated Commission: " + str(orders["estimatedCommission"]))
-                            if orders is not None and "estimatedTotalAmount" in orders:
-                                print("Estimated Total Cost: " + str(orders["estimatedTotalAmount"]))
-                        else:
-                            # Handle errors
-                            data = response.json()
-                            if 'Error' in data and 'message' in data["Error"] and data["Error"]["message"] is not None:
-                                print("Error: " + data["Error"]["message"])
-                                logger.debug("Response Body: %s", response)
-                            else:
-                                print("Error: Preview Order API service error")
-                                logger.debug("Response Body: %s", response)
+                        return response.json()
                     else:
                         # Handle errors
                         data = response.json()

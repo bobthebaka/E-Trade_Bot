@@ -15,7 +15,12 @@ def runPass(FileIn,FileOut):
             splits = line.split('wx.DATAVIEW_COL_RESIZABLE')
             reformed = splits[0] + 'wx.dataview.DATAVIEW_COL_RESIZABLE' + splits[1]
             print (reformed)
-
+            
+        if "wx.DATAVIEW_CELL_INERT" in line:
+            splits = line.split('wx.DATAVIEW_CELL_INERT')
+            reformed = splits[0] + 'wx.dataview.DATAVIEW_CELL_INERT' + splits[1]
+            print (reformed)
+            
         if "self.Text_SerialNumber = wx.TextCtrl" in line:
             reformed = line.replace(', 0 )',',wx.TE_PROCESS_ENTER) ')
             
@@ -38,8 +43,8 @@ def runPass(FileIn,FileOut):
 
 if __name__ == "__main__":
 
-    runPass("etrade_python_client.py","etrade_python_client.py")
-    runPass("etrade_python_client.py","etrade_python_client.py")
-    runPass("etrade_python_client.py","etrade_python_client.py")
-    runPass("etrade_python_client.py","etrade_python_client.py")
+    runPass("EtradeWindowAbstract.py","EtradeWindowAbstract.py")
+    runPass("EtradeWindowAbstract.py","EtradeWindowAbstract.py")
+    runPass("EtradeWindowAbstract.py","EtradeWindowAbstract.py")
+    runPass("EtradeWindowAbstract.py","EtradeWindowAbstract.py")
 
